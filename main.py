@@ -48,12 +48,12 @@ from sys import argv
 import os
 import json
 
-from food import Food
-from protein import Protein
-from fruit import Fruit
-from dairy import Dairy
-from grain import Grain
-from vegetable import Vegetable
+from classes.food import Food
+from classes.protein import Protein
+from classes.fruit import Fruit
+from classes.dairy import Dairy
+from classes.grain import Grain
+from classes.vegetable import Vegetable
 
 from colors import print_colors
 
@@ -99,9 +99,7 @@ def read_stats(filepath):
                     FOOD_TABLE[curr_group][name] = {}
 
                     for i, stat in enumerate(stats):
-                        FOOD_TABLE[curr_group][name][Food.STAT_ORDER[i]] = int(
-                            stat
-                        )
+                        FOOD_TABLE[curr_group][name][Food.STAT_ORDER[i]] = int(stat)
 
 
 def get_parent_class(item):
