@@ -54,6 +54,7 @@ from classes.fruit import Fruit
 from classes.dairy import Dairy
 from classes.grain import Grain
 from classes.vegetable import Vegetable
+import constants
 import custom_scanner
 
 from colors import print_colors
@@ -74,10 +75,17 @@ CLASSES = {
 FOOD_TABLE = {}
 OUTPUT_WIDTH = 62
 
+"""
+[============================== FILE INPUT ====================================]
+"""
+
+# region
+
 
 def read_stats(filepath):
     """
-    Way for the food configuration file to be loaded in.
+    Loads in the configuration file of the stats belonging to each food item,
+    and to which food group they belong.
 
     Students can maybe get bonus marks for implementing their own format
     and code their own parser for it, instead of using json.
@@ -88,6 +96,71 @@ def read_stats(filepath):
         FOOD_TABLE = json.load(open(filepath))
     else:
         FOOD_TABLE = custom_scanner.load_stats(filepath)
+
+
+def build_decks(deck_filepath: str) -> dict[int, list[Food]]:
+    """
+    Function for reading in the deck files. Json implementation needs a little
+    bit more code than just .load() since the objects need to be created.
+
+    Students can again create their own format and make their own parser for it.
+    """
+
+    decks = [[], []]
+    curr_player = -1
+    curr_color = "B"
+    if deck_filepath.endswith("json"):
+        deck_file = json.load(open(deck_filepath))
+        curr_player = 0
+        for player_number, player_deck in deck_file.items():
+            curr_color = "B" if curr_player == 0 else "R"
+            for food_item in player_deck:
+                parent_class = get_parent_class(food_item)
+                stats = FOOD_TABLE[parent_class][food_item]
+
+                food_obj = generate_food_object(
+                    parent_class, food_item, stats, curr_color
+                )
+                decks[curr_player].append(food_obj)
+            curr_player += 1
+    else:
+        decks = custom_scanner.build_decks(deck_filepath)
+
+    return decks
+
+
+# endregion
+
+
+"""
+[============================== USER INPUT ====================================]
+"""
+
+# region
+
+
+def ask_player_index(player):
+    color = colored_player(player)
+    input_str = input(ASK_OWN_CARD % (color, len(decks[player])))
+    return int(input_str) - 1 if input_str != "" else None
+
+
+def ask_opp_index(player):
+    input_str = input(ASK_OPP_CARD % len(decks[player]))
+    return int(input_str) - 1 if input_str != "" else None
+
+
+def ask_should_skill():
+    return input(ASK_SKILL).lower() == "y"
+
+
+# endregion
+
+
+"""
+[================================= HELPER =====================================]
+"""
+# region
 
 
 def get_parent_class(item):
@@ -110,28 +183,22 @@ def colored_player(player):
     return f"{get_player_color(player)}Player {player+1}{print_colors[None]}"
 
 
-def build_decks(deck_filepath: str) -> dict[int, list[Food]]:
-    decks = [[], []]
-    curr_player = -1
-    curr_color = "B"
-    if deck_filepath.endswith("json"):
-        deck_file = json.load(open(deck_filepath))
-        curr_player = 0
-        for player_number, player_deck in deck_file.items():
-            curr_color = "B" if curr_player == 0 else "R"
-            for food_item in player_deck:
-                parent_class = get_parent_class(food_item)
-                stats = FOOD_TABLE[parent_class][food_item]
-
-                food_obj = generate_food_object(
-                    parent_class, food_item, stats, curr_color
-                )
-                decks[curr_player].append(food_obj)
-            curr_player += 1
+def flip_coin():
+    if random() < 0.5:
+        print(f"Flipped heads! {colored_player(0)} starts.")
+        return 0
     else:
-        decks = custom_scanner.build_decks(deck_filepath)
+        print(f"Flipped tails! {colored_player(1)} starts.")
+        return 1
 
-    return decks
+
+# endregion
+
+"""
+[============================== TABLE PRINT ===================================]
+"""
+
+# region
 
 
 def draw_round_num(round_num):
@@ -161,7 +228,7 @@ def draw_table_heading_bottom():
 
 def draw_table_total_row(deck: list[Food]):
     print(f"├{'─'*4}┼{'─'*15}┼{'─'*7}┼{'─'*7}┼{'─'*7}┼{'─'*7}┼{'─'*7}")
-    totals = {Food.STAT_ORDER[i]: 0 for i in range(len(Food.STAT_ORDER))}
+    totals = {constants.STAT_ORDER[i]: 0 for i in range(len(constants.STAT_ORDER))}
     print(f"│{' ':4s}│ {'Total':14s}", end="")
     for i, obj in enumerate(deck):
         for stat in obj.stats:
@@ -188,28 +255,7 @@ def draw_decks(decks):
         draw_deck(decks[player], player)
 
 
-def flip_coin():
-    if random() < 0.5:
-        print(f"Flipped heads! {colored_player(0)} starts.")
-        return 0
-    else:
-        print(f"Flipped tails! {colored_player(1)} starts.")
-        return 1
-
-
-def ask_player_index(player):
-    color = colored_player(player)
-    input_str = input(ASK_OWN_CARD % (color, len(decks[player])))
-    return int(input_str) - 1 if input_str != "" else None
-
-
-def ask_opp_index(player):
-    input_str = input(ASK_OPP_CARD % len(decks[player]))
-    return int(input_str) - 1 if input_str != "" else None
-
-
-def ask_should_skill():
-    return input(ASK_SKILL).lower() == "y"
+# endregion
 
 
 if __name__ == "__main__":

@@ -1,11 +1,10 @@
 from random import random
 from colors import print_colors
 
-from constants import MIN, MAX
+from constants import STATS_MIN, STATS_MAX
 
 
 class Food:
-    STAT_ORDER = ["health", "mana", "attack", "defence", "speed"]
     DEFLECTED_STR = "  Deflected %.1f damage (%.1f -> %.1f)"
     DODGE_STR = "  Dodge chance: %.1f%%"
     HEALTH_STR = "  %s's heath updated: %.1f -> %.1f"
@@ -14,7 +13,7 @@ class Food:
         self.name = food_item
         self.stats = stats
         self.color = print_colors[color]
-        self.dodge_rate = 1 - (1 / (1 + self.stats["speed"] / MAX["speed"]))
+        self.dodge_rate = 1 - (1 / (1 + self.stats["speed"] / STATS_MAX["speed"]))
 
     def get(self, attribute):
         return self.stats[attribute]

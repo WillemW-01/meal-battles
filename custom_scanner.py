@@ -1,5 +1,6 @@
 from main import FOOD_TABLE, CLASSES, get_parent_class
-from classes.food import STAT_ORDER, Food
+from constants import STAT_ORDER
+from classes.food import Food
 
 
 def load_stats(filepath):
