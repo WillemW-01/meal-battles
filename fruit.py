@@ -1,4 +1,4 @@
-from .food import Food
+from food import Food
 
 
 class Fruit(Food):
@@ -15,5 +15,5 @@ class Fruit(Food):
     def __str__(self):
         return f"{self.color}{self.name} (Fruit Class)\033[0m"
 
-    def special_ability(self, other):
-        print("Performing special ability!")
+    def special_ability(self, other=None):
+        print(f"{self} is activating its special ability!")

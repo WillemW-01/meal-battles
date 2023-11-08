@@ -1,0 +1,3 @@
+Player %d, choose the index of the card you want to play (1..%d): 
+Now choose the index of the card of the opponent's deck you would like to attack (1..%d): 
+Would you like to play the ability of your selected card? (Y/N): 

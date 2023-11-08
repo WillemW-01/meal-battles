@@ -1,0 +1,362 @@
+{
+  "Fruit": {
+    "Apple": {
+      "health": 20,
+      "mana": 10,
+      "attack": 7,
+      "defence": 0,
+      "speed": 340
+    },
+    "Banana": {
+      "health": 20,
+      "mana": 10,
+      "attack": 7,
+      "defence": 0,
+      "speed": 340
+    },
+    "Orange": {
+      "health": 20,
+      "mana": 10,
+      "attack": 7,
+      "defence": 0,
+      "speed": 340
+    },
+    "Blueberries": {
+      "health": 20,
+      "mana": 10,
+      "attack": 7,
+      "defence": 0,
+      "speed": 340
+    },
+    "Grapes": {
+      "health": 20,
+      "mana": 10,
+      "attack": 7,
+      "defence": 0,
+      "speed": 340
+    },
+    "Pineapple": {
+      "health": 20,
+      "mana": 10,
+      "attack": 7,
+      "defence": 0,
+      "speed": 340
+    },
+    "Watermelon": {
+      "health": 20,
+      "mana": 10,
+      "attack": 7,
+      "defence": 0,
+      "speed": 340
+    },
+    "Kiwi": {
+      "health": 20,
+      "mana": 10,
+      "attack": 7,
+      "defence": 0,
+      "speed": 340
+    },
+    "Mango": {
+      "health": 20,
+      "mana": 10,
+      "attack": 7,
+      "defence": 0,
+      "speed": 340
+    },
+    "Strawberry": {
+      "health": 20,
+      "mana": 10,
+      "attack": 7,
+      "defence": 0,
+      "speed": 340
+    }
+  },
+  "Vegetable": {
+    "Broccoli": {
+      "health": 60,
+      "mana": 2,
+      "attack": 7,
+      "defence": 65,
+      "speed": 100
+    },
+    "Carrot": {
+      "health": 60,
+      "mana": 2,
+      "attack": 7,
+      "defence": 65,
+      "speed": 100
+    },
+    "Spinach": {
+      "health": 60,
+      "mana": 2,
+      "attack": 7,
+      "defence": 65,
+      "speed": 100
+    },
+    "Bell Pepper": {
+      "health": 60,
+      "mana": 2,
+      "attack": 7,
+      "defence": 65,
+      "speed": 100
+    },
+    "Tomato": {
+      "health": 60,
+      "mana": 2,
+      "attack": 7,
+      "defence": 65,
+      "speed": 100
+    },
+    "Cucumber": {
+      "health": 60,
+      "mana": 2,
+      "attack": 7,
+      "defence": 65,
+      "speed": 100
+    },
+    "Cauliflower": {
+      "health": 60,
+      "mana": 2,
+      "attack": 7,
+      "defence": 65,
+      "speed": 100
+    },
+    "Zucchini": {
+      "health": 60,
+      "mana": 2,
+      "attack": 7,
+      "defence": 65,
+      "speed": 100
+    },
+    "Eggplant": {
+      "health": 60,
+      "mana": 2,
+      "attack": 7,
+      "defence": 65,
+      "speed": 100
+    },
+    "Lettuce": {
+      "health": 60,
+      "mana": 2,
+      "attack": 7,
+      "defence": 65,
+      "speed": 100
+    }
+  },
+  "Protein": {
+    "Chicken": {
+      "health": 60,
+      "mana": 2,
+      "attack": 15,
+      "defence": 25,
+      "speed": 40
+    },
+    "Beef": {
+      "health": 60,
+      "mana": 2,
+      "attack": 15,
+      "defence": 25,
+      "speed": 40
+    },
+    "Tofu": {
+      "health": 60,
+      "mana": 2,
+      "attack": 15,
+      "defence": 25,
+      "speed": 40
+    },
+    "Salmon": {
+      "health": 60,
+      "mana": 2,
+      "attack": 15,
+      "defence": 25,
+      "speed": 40
+    },
+    "Lentils": {
+      "health": 60,
+      "mana": 2,
+      "attack": 15,
+      "defence": 25,
+      "speed": 40
+    },
+    "Ham": {
+      "health": 60,
+      "mana": 2,
+      "attack": 15,
+      "defence": 25,
+      "speed": 40
+    },
+    "Shrimp": {
+      "health": 60,
+      "mana": 2,
+      "attack": 15,
+      "defence": 25,
+      "speed": 40
+    },
+    "Turkey": {
+      "health": 60,
+      "mana": 2,
+      "attack": 15,
+      "defence": 25,
+      "speed": 40
+    },
+    "Eggs": {
+      "health": 60,
+      "mana": 2,
+      "attack": 15,
+      "defence": 25,
+      "speed": 40
+    },
+    "Peanut Butter": {
+      "health": 60,
+      "mana": 2,
+      "attack": 15,
+      "defence": 25,
+      "speed": 40
+    }
+  },
+  "Dairy": {
+    "Milk": {
+      "health": 20,
+      "mana": 10,
+      "attack": 7,
+      "defence": 0,
+      "speed": 340
+    },
+    "Cheese": {
+      "health": 20,
+      "mana": 10,
+      "attack": 7,
+      "defence": 0,
+      "speed": 340
+    },
+    "Yogurt": {
+      "health": 20,
+      "mana": 10,
+      "attack": 7,
+      "defence": 0,
+      "speed": 340
+    },
+    "Butter": {
+      "health": 20,
+      "mana": 10,
+      "attack": 7,
+      "defence": 0,
+      "speed": 340
+    },
+    "Cottage Cheese": {
+      "health": 20,
+      "mana": 10,
+      "attack": 7,
+      "defence": 0,
+      "speed": 340
+    },
+    "Sour Cream": {
+      "health": 20,
+      "mana": 10,
+      "attack": 7,
+      "defence": 0,
+      "speed": 340
+    },
+    "Cream Cheese": {
+      "health": 20,
+      "mana": 10,
+      "attack": 7,
+      "defence": 0,
+      "speed": 340
+    },
+    "Whipped Cream": {
+      "health": 20,
+      "mana": 10,
+      "attack": 7,
+      "defence": 0,
+      "speed": 340
+    },
+    "Evaporated Milk": {
+      "health": 20,
+      "mana": 10,
+      "attack": 7,
+      "defence": 0,
+      "speed": 340
+    },
+    "Condensed Milk": {
+      "health": 20,
+      "mana": 10,
+      "attack": 7,
+      "defence": 0,
+      "speed": 340
+    }
+  },
+  "Grain": {
+    "Rice": {
+      "health": 5,
+      "mana": 4,
+      "attack": 7,
+      "defence": 4,
+      "speed": 100
+    },
+    "Bread": {
+      "health": 5,
+      "mana": 4,
+      "attack": 7,
+      "defence": 4,
+      "speed": 100
+    },
+    "Pasta": {
+      "health": 5,
+      "mana": 4,
+      "attack": 7,
+      "defence": 4,
+      "speed": 100
+    },
+    "Oats": {
+      "health": 5,
+      "mana": 4,
+      "attack": 7,
+      "defence": 4,
+      "speed": 100
+    },
+    "Quinoa": {
+      "health": 5,
+      "mana": 4,
+      "attack": 7,
+      "defence": 4,
+      "speed": 100
+    },
+    "Barley": {
+      "health": 5,
+      "mana": 4,
+      "attack": 7,
+      "defence": 4,
+      "speed": 100
+    },
+    "Corn": {
+      "health": 5,
+      "mana": 4,
+      "attack": 7,
+      "defence": 4,
+      "speed": 100
+    },
+    "Wheat": {
+      "health": 5,
+      "mana": 4,
+      "attack": 7,
+      "defence": 4,
+      "speed": 100
+    },
+    "Rye": {
+      "health": 5,
+      "mana": 4,
+      "attack": 7,
+      "defence": 4,
+      "speed": 100
+    },
+    "Millet": {
+      "health": 5,
+      "mana": 4,
+      "attack": 7,
+      "defence": 4,
+      "speed": 100
+    }
+  }
+}
