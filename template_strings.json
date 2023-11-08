@@ -1,0 +1,5 @@
+{
+  "ASK_OWN_CARD": "%s, choose the index of your card (1..%d): ",
+  "ASK_OPP_CARD": "Now choose the index of opp card (1..%d): ",
+  "ASK_SKILL": "Activate special ability? (Y/N): "
+}

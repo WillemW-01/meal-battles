@@ -3,14 +3,14 @@ from constants import STAT_ORDER
 from classes.food import Food
 
 
-def load_stats(filepath):
+def load_stats(stats_file: str) -> dict[str, dict[str, dict[str, int]]]:
     """
     Students can maybe get bonus marks for implementing their own format
     and code their own parser for it, instead of using json.
     """
-    if filepath.endswith("conf"):
+    if stats_file.endswith("conf"):
         temp_table = {}
-        with open(filepath) as stats_file:
+        with open(stats_file) as stats_file:
             for line in stats_file:
                 if line in ["", "\n"]:
                     continue

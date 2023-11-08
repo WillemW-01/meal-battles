@@ -61,9 +61,7 @@ from colors import print_colors
 
 seed(100)  # make the pseudo-random number generator produce the same output
 
-ASK_OWN_CARD = "%s, choose the index of your card (1..%d): "
-ASK_OPP_CARD = "Now choose the index of opp card (1..%d): "
-ASK_SKILL = "Activate special ability? (Y/N): "
+templates = json.load(open("template_strings.json"))
 
 CLASSES = {
     "Protein": Protein,
@@ -82,7 +80,7 @@ OUTPUT_WIDTH = 62
 # region
 
 
-def read_stats(filepath):
+def read_stats(stats_file: str) -> dict[str, dict[str, dict[str, int]]]:
     """
     Loads in the configuration file of the stats belonging to each food item,
     and to which food group they belong.
@@ -90,12 +88,11 @@ def read_stats(filepath):
     Students can maybe get bonus marks for implementing their own format
     and code their own parser for it, instead of using json.
     """
-    global FOOD_TABLE
 
-    if filepath.endswith("json"):
-        FOOD_TABLE = json.load(open(filepath))
+    if stats_file.endswith("json"):
+        return json.load(open(stats_file))
     else:
-        FOOD_TABLE = custom_scanner.load_stats(filepath)
+        return custom_scanner.load_stats(stats_file)
 
 
 def build_decks(deck_filepath: str) -> dict[int, list[Food]]:
@@ -141,17 +138,17 @@ def build_decks(deck_filepath: str) -> dict[int, list[Food]]:
 
 def ask_player_index(player):
     color = colored_player(player)
-    input_str = input(ASK_OWN_CARD % (color, len(decks[player])))
+    input_str = input(templates["ASK_OWN_CARD"] % (color, len(decks[player])))
     return int(input_str) - 1 if input_str != "" else None
 
 
 def ask_opp_index(player):
-    input_str = input(ASK_OPP_CARD % len(decks[player]))
+    input_str = input(templates["ASK_OPP_CARD"] % len(decks[player]))
     return int(input_str) - 1 if input_str != "" else None
 
 
 def ask_should_skill():
-    return input(ASK_SKILL).lower() == "y"
+    return input(templates["ASK_SKILL"]).lower() == "y"
 
 
 # endregion
@@ -266,7 +263,7 @@ if __name__ == "__main__":
         decks_file = argv[2]
 
     # Reading in the stats of all food items
-    read_stats(stats_file)
+    FOOD_TABLE = read_stats(stats_file)
 
     # Reading in the players' decks
     decks = build_decks(decks_file)
