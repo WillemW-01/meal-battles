@@ -1,0 +1,28 @@
+{
+  "Grain": {
+    "Rye Bread": {
+      "health": 5,
+      "mana": 4,
+      "attack": 3,
+      "defence": 1,
+      "speed": 3
+    },
+    "Rice": { "health": 4, "mana": 5, "attack": 2, "defence": 1, "speed": 3 }
+  },
+  "Vegetable": {
+    "Potato": { "health": 6, "mana": 6, "attack": 6, "defence": 6, "speed": 6 }
+  },
+  "Meat": {
+    "Chicken": {
+      "health": 6,
+      "mana": 1,
+      "attack": 6,
+      "defence": 4,
+      "speed": 2
+    },
+    "Egg": { "health": 6, "mana": 1, "attack": 5, "defence": 4, "speed": 1 }
+  },
+  "Dairy": {
+    "Yogurt": { "health": 5, "mana": 4, "attack": 3, "defence": 3, "speed": 2 }
+  }
+}

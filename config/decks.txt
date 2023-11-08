@@ -1,0 +1,11 @@
+1
+  Chicken
+  Chicken
+  Egg
+  Potato
+2
+  Chicken
+  Egg
+  Rice
+  Rye Bread
+

@@ -1,0 +1,18 @@
+{
+  "Meal 1: Fruit Salad": [
+    "Apple",
+    "Banana",
+    "Blueberries",
+    "Mango",
+    "Strawberry"
+  ],
+  "Meal 2: Vegetable Stir-Fry": [
+    "Broccoli",
+    "Bell Pepper",
+    "Zucchini",
+    "Eggplant"
+  ],
+  "Meal 3: High-Protein Plate": ["Tofu", "Lentils", "Salmon"],
+  "Meal 4: Dairy Breakfast": ["Milk", "Cheese", "Butter", "Yogurt"],
+  "Meal 5: Grains Medley": ["Rice", "Bread", "Pasta", "Oats"]
+}
