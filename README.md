@@ -52,7 +52,7 @@ and can be put together in a meal. Once a player has put together a meal, they
 can fight against another player's meal. This can be accomplished via a
 turn-based system. The exact details is still being thought out.
 
-For now, in this demo project, 6 different foods will be implemented with their
+For now, in this demo project, a few different foods will be implemented with their
 respective food groups, and a very shallow game-play loop will be programmed.
 
 This game can also support text mode and graphics mode, if a GUI or only a text
