@@ -250,8 +250,6 @@ if __name__ == "__main__":
     game.load_decks(decks)
 
     gui = Gui(game)
-    gui.update()
-    exit(1)
 
     # Start game play loop
 
@@ -260,6 +258,8 @@ if __name__ == "__main__":
 
     while True:
         # drawing phase
+        gui.update()
+        exit(1)
         draw_round_num(game.get_round())
         draw_decks(game.get_decks())
 
