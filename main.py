@@ -54,6 +54,7 @@ from classes.fruit import Fruit
 from classes.dairy import Dairy
 from classes.grain import Grain
 from classes.vegetable import Vegetable
+import custom_scanner
 
 from colors import print_colors
 
@@ -75,31 +76,18 @@ OUTPUT_WIDTH = 62
 
 
 def read_stats(filepath):
+    """
+    Way for the food configuration file to be loaded in.
+
+    Students can maybe get bonus marks for implementing their own format
+    and code their own parser for it, instead of using json.
+    """
     global FOOD_TABLE
 
     if filepath.endswith("json"):
         FOOD_TABLE = json.load(open(filepath))
     else:
-        """
-        Maybe for bonus marks the students must implement their own, custom
-        file format and a parser for that format, instead of using json.
-        """
-        with open(filepath) as stats_file:
-            for line in stats_file:
-                if line in ["", "\n"]:
-                    continue
-
-                if not line.startswith(" "):
-                    curr_group = line.strip().replace(":", "")
-                    FOOD_TABLE[curr_group] = {}
-                else:
-                    name, stats = line.split(" | ")
-                    name = name.strip()
-                    stats = stats.split(" ")
-                    FOOD_TABLE[curr_group][name] = {}
-
-                    for i, stat in enumerate(stats):
-                        FOOD_TABLE[curr_group][name][Food.STAT_ORDER[i]] = int(stat)
+        FOOD_TABLE = custom_scanner.load_stats(filepath)
 
 
 def get_parent_class(item):
@@ -141,33 +129,14 @@ def build_decks(deck_filepath: str) -> dict[int, list[Food]]:
                 decks[curr_player].append(food_obj)
             curr_player += 1
     else:
-        """
-        Again, maybe a custom deck format reader for bonus marks.
-        """
-        with open(deck_filepath) as input_decks:
-            while input_decks.readable():
-                food_name = input_decks.readline().strip()
-                if food_name == "":
-                    break
-                if food_name.find("Player") >= 0:
-                    curr_player += 1
-                    continue
-
-                food_class = get_parent_class(food_name)
-                food_stats = FOOD_TABLE[parent_class][food_item]
-
-                curr_color = "B" if curr_player == 0 else "R"
-                food_character = CLASSES[food_class](
-                    food_name, stats=food_stats, color=curr_color
-                )
-                decks[curr_player].append(food_character)
+        decks = custom_scanner.build_decks(deck_filepath)
 
     return decks
 
 
 def draw_round_num(round_num):
     print(
-        f"\n┌{'─'*24}( {print_colors['Y']}ROUND {round_num} {print_colors[None]}){'─'*25}┐\n"
+        f"\n┌{'─'*24}({print_colors['Y']} ROUND {round_num} {print_colors[None]}){'─'*25}┐\n"
     )
 
 
@@ -244,8 +213,8 @@ def ask_should_skill():
 
 
 if __name__ == "__main__":
-    stats_file = "config/food_stats.json"
-    decks_file = "config/decks.json"
+    stats_file = "input/food_stats.json"
+    decks_file = "input/decks.json"
     if len(argv) == 3:
         stats_file = argv[1]
         decks_file = argv[2]
