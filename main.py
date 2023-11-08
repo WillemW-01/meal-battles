@@ -47,12 +47,12 @@ from random import random, seed
 from sys import argv
 import json
 
-from food import Food
-from protein import Protein
-from fruit import Fruit
-from dairy import Dairy
-from grain import Grain
-from vegetable import Vegetable
+from classes.food import Food
+from classes.protein import Protein
+from classes.fruit import Fruit
+from classes.dairy import Dairy
+from classes.grain import Grain
+from classes.vegetable import Vegetable
 
 from colors import print_colors
 
