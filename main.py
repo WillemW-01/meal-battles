@@ -55,6 +55,7 @@ from classes.dairy import Dairy
 from classes.grain import Grain
 from classes.vegetable import Vegetable
 from game import Game
+from gui import Gui
 import constants
 import custom_scanner
 import utils
@@ -247,6 +248,10 @@ if __name__ == "__main__":
     # Reading in the players' decks
     decks = build_decks(decks_file)
     game.load_decks(decks)
+
+    gui = Gui(game)
+    gui.update()
+    exit(1)
 
     # Start game play loop
 
