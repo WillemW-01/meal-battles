@@ -1,6 +1,10 @@
-from main import FOOD_TABLE, CLASSES, get_parent_class
+from main import CLASSES
 from constants import STAT_ORDER
 from classes.food import Food
+
+"""
+These functions do not work at the moment, so don't try to use them.
+"""
 
 
 def load_stats(stats_file: str) -> dict[str, dict[str, dict[str, int]]]:
@@ -32,7 +36,7 @@ def load_stats(stats_file: str) -> dict[str, dict[str, dict[str, int]]]:
         exit("ERR: invalid file format.")
 
 
-def build_decks(deck_filepath: str) -> dict[int, list[Food]]:
+def build_decks(deck_filepath: str, game) -> dict[int, list[Food]]:
     """
     Again, maybe a custom deck format reader for bonus marks.
     """
@@ -49,8 +53,8 @@ def build_decks(deck_filepath: str) -> dict[int, list[Food]]:
                     curr_player += 1
                     continue
 
-                parent_class = get_parent_class(food_name)
-                food_stats = FOOD_TABLE[parent_class][food_name]
+                parent_class = game.get_parent_class(food_name)
+                food_stats = game.from_table(parent_class, food_name)
 
                 curr_color = "B" if curr_player == 0 else "R"
                 food_character = CLASSES[parent_class](
