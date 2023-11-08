@@ -1,4 +1,5 @@
 import stddraw
+import picture
 from game import Game
 
 
@@ -32,7 +33,7 @@ class Gui:
     CARD_W = DECK_1_W // 2
     CARD_H = DECK_1_H // 3
 
-    PLAYER_COLORS = {True: stddraw.RED, False: stddraw.BOOK_BLUE}
+    PLAYER_COLORS = {True: stddraw.BOOK_RED, False: stddraw.BOOK_BLUE}
 
     @staticmethod
     def draw_filled_rect(x, y, w, h, fill_color=stddraw.LIGHT_GRAY):
@@ -45,8 +46,11 @@ class Gui:
         stddraw.setCanvasSize(w, h)
         stddraw.setXscale(0, w)
         stddraw.setYscale(0, h)
-        stddraw.setFontSize(24)
+        stddraw.setFontFamily("Verdana")
+        stddraw.setFontSize(30)
         self.game = game_state
+        print(self.CARD_W)
+        print(self.CARD_H)
 
     def _draw_top_info(self):
         Gui.draw_filled_rect(
@@ -69,28 +73,41 @@ class Gui:
             self.INFO_BOT_L, self.INFO_BOT_B, self.INFO_BOT_W, self.INFO_BOT_H
         )
 
-    def _draw_card(self, left, bottom):
-        pass
+    def _draw_card(self, left, bottom, side):
+        center_x = left + self.CARD_W // 2
+        center_y = bottom + self.CARD_H // 2
+        color = self.PLAYER_COLORS[side]
+        stddraw.setPenColor(color)
+        stddraw.filledCircle(center_x, center_y, self.CARD_W // 4)
+        stddraw.setPenColor()
 
-    def _draw_deck_grid(self, left):
+    def _draw_deck_grid(self, left, side):
         stddraw.setPenRadius(1.5)
-        for row in range(
-            self.DECK_1_B + self.CARD_H, self.DECK_1_T - self.CARD_H, self.CARD_H
-        ):
-            stddraw.line(left, row, left + self.DECK_1_W, row)
+
+        # draw the middle line
         stddraw.line(
             left + self.CARD_W, self.DECK_1_T, left + self.CARD_W, self.DECK_1_B
         )
+
+        # draw the lines and the cards for each of the 3 rows
+        for row in range(self.DECK_1_B, self.DECK_1_T, self.CARD_H):
+            if row > self.DECK_1_B and row < self.DECK_1_T - 1:
+                stddraw.line(left + 1, row, left + self.DECK_1_W, row)
+
+            # for now each card is a circle
+            self._draw_card(left, row - self.CARD_H, side)  # left col
+            self._draw_card(left + self.CARD_W, row - self.CARD_H, side)  # right col
+
         stddraw.setPenRadius()
 
     def _draw_decks(self):
         # draw player 1 deck
         Gui.draw_filled_rect(self.DECK_1_L, self.DECK_1_B, self.DECK_1_W, self.DECK_1_H)
-        self._draw_deck_grid(self.DECK_1_L)
+        self._draw_deck_grid(self.DECK_1_L, False)
 
         # draw player 2 deck
         Gui.draw_filled_rect(self.DECK_2_L, self.DECK_2_B, self.DECK_2_W, self.DECK_2_H)
-        self._draw_deck_grid(self.DECK_2_L)
+        self._draw_deck_grid(self.DECK_2_L, True)
 
     def update(self):
         self._draw_decks()
