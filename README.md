@@ -1,68 +1,56 @@
 # Meal Battles
 
-## Food-themed, turn-based card battler
+    Food-themed, turn-based card battler
 
 ## Description:
 
-The food we eat all have values related to their nutrition, among them calories,
-carbohydrates, proteins, lipids and fibre. These can also be seen as stats like
-those found in RPGs. For example, the following comparisons can be made:
+The food we eat each have their own distribution of macronutrients.
+These macronutrients can be compared to the stats of the food, and when we plan
+meals, optimally we would want to make the stats as balanced as possible.
 
-**1. Health (HP) ==> calories**
+Enter **Meal Battles**, the turn-based, card battler that will take two decks of
+food items. The idea is simple: the food cards each have their own stats, and these
+cards can be combined into meals (decks) such that each player must try to remove
+all the cards from their opponent's deck. More information is found below.
 
-This is due to the amount of energy the food provides can influence a person's
-ability to work.
+## Nutrients compared to RPG stats
 
-Health points determine how many hits a food character can take.
+The macronutrients of foods include calories, carbohydrates, proteins, lipids and fibre.
+Each of these macronutrients can be compared in the following way:
 
-**2. Mana (MP) ==> carbohydrates**
+| Stat                | Nutrient      | Real world use                                                                                  | Use in game                                                                                                     |
+| ------------------- | ------------- | ----------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Health (HP)         | Calories      | This is due to the amount of energy the food provides can influence a person's ability to work. | Health points determine how many hits a food character can take.                                                |
+| Mana (MP)           | Carbohydrates | Carbohyrates are the main source of energy for the body, but more importantly the brain.        | Mana points determine the amount and degree of spells (special abilities) that can be cast by a food character. |
+| Damage (DMG)        | Protein       | Proteins are used to rebuild and grow muscles, which correlates to strength.                    | Attack contributes to the damage outputted by a food character.                                                 |
+| Defence (DEFF)      | Lipids        | Having more fat reserves around the organs protects them.                                       | Defence determines how much % of incoming damage a food character deflects.                                     |
+| Movement Speed (MS) | Fibre         | Fibre prevents constipation by assisting in moving food around the body.                        | Movement speed postiively correlates to the chances of completely missing a direct attack (not spells).         |
 
-Carbohyrates are the main source of energy for the body, but more importantly
-the brain.
+## Game loop
 
-Mana points determine the amount and degree of spells (special abilities) that
-can be cast by a food character.
+The food items that are used are stored in a `foods` configuration file, and the players' decks are also loaded into another configuration file.
+These files are read at the start of the game.
+Then, a player is chosen at random to start, and the player must choose one of their own cards to attack one of their opponent's cards. They may also choose to activate their card's special ability. The player may also choose not to attack an opponent's card. Then, if chosen, the player's card will attack the opponent's card and the battle result will be displayed. A new round will begin after that, and the opponent has their turn. This continues until a player's deck is empty.
 
-**3. Damage (DMG) ==> protein**
+## Implementation so far
 
-Proteins are used to rebuild and grow muscles, which correlates to strength.
-Attack contributes to the damage outputted by a food character.
+For now, in this demo project, around 50 different foods will be implemented with their
+respective food groups, and a shallow gameplay loop will be programmed.
 
-**4. Defence (DEFF) ==> lipids**
-
-Having more fat reserves around the organs protects them.
-
-Defence determines how much % of incoming damage a food character deflects.
-
-**5. Movement Speed (MS) ==> fibre**
-
-Fibre prevents constipation by assisting in moving food around the body.
-
-Movement speed postiively correlates to the chances of completely missing
-a direct attack (not spells).
-
----
-
-Due to these comparisons, the idea of having different foods being represented
-as characters in an RPG-type game is not far off. Different foods will have
-different strengths, and different foods can also be grouped together in their
-respected food group (meat, grains, dairy) which could all have specific buffs
-and drawbacks. Different foods can then inherit the traits of their food group,
-and can be put together in a meal. Once a player has put together a meal, they
-can fight against another player's meal. This can be accomplished via a
-turn-based system. The exact details is still being thought out.
-
-For now, in this demo project, a few different foods will be implemented with their
-respective food groups, and a very shallow game-play loop will be programmed.
-
-This game can also support text mode and graphics mode, if a GUI or only a text
-mode would be desired or necessary at one stage (for example 2 hand-ins)
+This game can also support text mode and graphics mode, with an appropriate cmd switch.
 
 See the `ideas` folder for more information on possible ways the project can
-go forward.
+go forward, as well as documentation for how certain parts of the program _should_ work.
 
 ## Execution
 
-`$ python main.py <food_configuration.json> <decks.json>`
+All arguments are optional, and can be in any order.
 
-(see `config` folder for example inputs)
+`$ python main.py [--foods <filepath>] [--decks <filepath] [--gui]`
+
+Defaults are as follows:
+
+- foods: `input\foods.json`
+- decks: `input\deck-1.json`
+
+(see `input` folder for example inputs)
