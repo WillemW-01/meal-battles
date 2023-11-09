@@ -1,6 +1,6 @@
-from main import CLASSES
-from constants import STAT_ORDER
 from classes.food import Food
+from constants import STAT_ORDER
+from main import CLASSES
 
 """
 These functions do not work at the moment, so don't try to use them.
