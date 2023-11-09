@@ -1,9 +1,8 @@
-from picture import Picture
-
-import stddraw_modified as stddraw
+import stdlib.stddraw as stddraw
 from area import Area
 from game import Game
 from gui_constants import *
+from stdlib.picture import Picture
 
 
 class Gui:
