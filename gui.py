@@ -107,8 +107,8 @@ class Gui:
 
     def get_left_click(self):
         side, pos = self.get_mouse_click()
-        while not (side == Gui.MOUSE_LEFT):
-            if side == Gui.MOUSE_RIGHT:
+        while not (side == MOUSE_LEFT):
+            if side == MOUSE_RIGHT:
                 print("clicked info of something")
             side, pos = self.get_mouse_click()
 
