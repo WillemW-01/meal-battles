@@ -217,11 +217,15 @@ if __name__ == "__main__":
         gui.update()
 
         # select own target
-        gui.get_index()
+        gui.get_index_own()
         print("clicked own")
         # select opp target
-        gui.get_index()
+        gui.get_index_opp()
         print("clicked opp")
+
+        should_skill = gui.should_skill()
+        if should_skill:
+            print("activating ability")
         # attack
 
         # draw_round_num(game.get_round())

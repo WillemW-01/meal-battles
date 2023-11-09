@@ -4,6 +4,8 @@ from game import Game
 
 
 class Gui:
+    UPDATE_SPEED = 200  # ms
+
     WIDTH, HEIGHT = 1000, 750
     PADDING = 25
 
@@ -14,6 +16,7 @@ class Gui:
     # LOG_H = LOG_T - LOG_B
     # MAIN_R = LOG_L - PADDING
     MAIN_R = WIDTH
+    ABILITY_W = 100
 
     # top info bar
     INFO_TOP_W = 400
@@ -25,10 +28,15 @@ class Gui:
     INFO_TOP_T = HEIGHT
     INFO_TOP_B = INFO_TOP_T - INFO_TOP_H
     # bottom info bar
-    INFO_BOT_W = MAIN_R - 2 * PADDING - 100
     INFO_BOT_H = 100
-    INFO_BOT_L, INFO_BOT_R = PADDING, MAIN_R - PADDING
+    INFO_BOT_L, INFO_BOT_R = PADDING, MAIN_R - 2 * PADDING - ABILITY_W
     INFO_BOT_T, INFO_BOT_B = INFO_BOT_H, 0
+    INFO_BOT_W = INFO_BOT_R - INFO_BOT_L
+
+    ABILITY_L = INFO_BOT_R + PADDING
+    ABILITY_R = MAIN_R - PADDING
+    ABILITY_T, ABILITY_B = INFO_BOT_T, INFO_BOT_B
+    ABILITY_H = INFO_BOT_H
 
     # player 1 deck positions
     DECK_1_L, DECK_1_R = PADDING, MAIN_R // 2 - PADDING
@@ -67,10 +75,13 @@ class Gui:
 
         # fmt:off
         self.areas = {
-          "deck_1":  Area("deck_1", self.DECK_1_L, self.DECK_1_R, self.DECK_1_B, self.DECK_1_T),
-          "deck_2":  Area("deck_2", self.DECK_2_L, self.DECK_2_R, self.DECK_2_B, self.DECK_2_T),
-          "ability":  Area("ability", self.DECK_1_L, self.DECK_1_R, self.DECK_1_B, self.DECK_1_T),
+          "deck_1":  Area(self.DECK_1_L, self.DECK_1_R, self.DECK_1_B, self.DECK_1_T),
+          "deck_2":  Area(self.DECK_2_L, self.DECK_2_R, self.DECK_2_B, self.DECK_2_T),
+          "ability":  Area(self.ABILITY_L, self.ABILITY_R, self.ABILITY_B, self.ABILITY_T),
         }  # fmt:on
+
+    def is_in(self, area_name, x, y):
+        return self.areas[area_name].is_clicked(x, y)
 
     def _draw_log(self):
         # Gui.draw_filled_rect(self.LOG_L, self.LOG_B, self.LOG_W, self.LOG_H)
@@ -95,6 +106,12 @@ class Gui:
     def _draw_bottom_info(self):
         Gui.draw_filled_rect(
             self.INFO_BOT_L, self.INFO_BOT_B, self.INFO_BOT_W, self.INFO_BOT_H
+        )
+
+    def _draw_ability_button(self):
+        print(self.ABILITY_L, self.ABILITY_B, self.ABILITY_W, self.ABILITY_H)
+        Gui.draw_filled_rect(
+            self.ABILITY_L, self.ABILITY_B, self.ABILITY_W, self.ABILITY_H
         )
 
     def _draw_card(self, left, bottom, side):
@@ -135,12 +152,12 @@ class Gui:
 
     def get_mouse_click(self):
         while True:
-            stddraw.show(100)
+            stddraw.show(self.UPDATE_SPEED)
             if stddraw.mousePressed():
                 side = stddraw.mouseSide()
                 return side == "left", stddraw.mousePos()
 
-    def get_index(self):
+    def get_left_click(self):
         side, pos = self.get_mouse_click()
         while not (side == Gui.MOUSE_LEFT):
             if side == Gui.MOUSE_RIGHT:
@@ -148,26 +165,53 @@ class Gui:
             side, pos = self.get_mouse_click()
 
         # we know side == MOUSE_LEFT
-        # check if pos is in DECK_AREA
-        # if it is, get the object's information
-        print("clicked a card")
+        return pos
+
+    def get_index_own(self):
+        deck_indexes = ["deck_1", "deck_2"]
+        own_area = deck_indexes[self.game.get_player()]
+
+        pos = self.get_left_click()
+        in_deck_area = self.is_in(own_area, *pos)
+        while not in_deck_area:
+            pos = self.get_left_click()
+            in_deck_area = self.is_in(own_area, *pos)
+
+        print("clicked on own card")
+
+    def get_index_opp(self):
+        deck_indexes = ["deck_1", "deck_2"]
+        own_area = deck_indexes[not self.game.get_player()]
+
+        pos = self.get_left_click()
+        in_deck_area = self.is_in(own_area, *pos)
+        while not in_deck_area:
+            pos = self.get_left_click()
+            in_deck_area = self.is_in(own_area, *pos)
+
+        print("clicked on opp card")
+
+    def should_skill(self):
+        pos = self.get_left_click()
+        in_ability_area = self.is_in("ability", *pos)
+        while not in_ability_area:
+            pos = self.get_left_click()
+            in_ability_area = self.is_in("ability", *pos)
+        return True
 
     def update(self):
         self._draw_log()
         self._draw_decks()
         self._draw_top_info()
         self._draw_bottom_info()
+        self._draw_ability_button()
         pass
 
 
 class Area:
-    def __init__(self, name, left, right, bottom, top):
-        self.name = name
+    def __init__(self, left, right, bottom, top):
         self.x = range(left, right)
         self.y = range(bottom, top)
 
     def is_clicked(self, x, y):
         return x in self.x and y in self.y
-
-    def in_area(self, x, y, area_name):
-        return self.is_clicked(x, y) and self.name == area_name
