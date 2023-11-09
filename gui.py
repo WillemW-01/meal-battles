@@ -54,7 +54,6 @@ class Gui:
         Gui.draw_filled_rect(INFO_BOT_L, INFO_BOT_B, INFO_BOT_W, INFO_BOT_H)
 
     def _draw_ability_button(self, is_active=False):
-        print(ABILITY_L, ABILITY_B, ABILITY_W, ABILITY_H)
         Gui.draw_filled_rect(ABILITY_L, ABILITY_B, ABILITY_W, ABILITY_H)
 
         x_mid = ABILITY_L + ABILITY_W // 2

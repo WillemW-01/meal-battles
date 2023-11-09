@@ -1,4 +1,4 @@
-import stddraw_modified as stddraw
+import stdlib.stddraw as stddraw
 
 UPDATE_SPEED = 200  # ms
 
