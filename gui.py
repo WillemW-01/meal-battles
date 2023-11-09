@@ -127,14 +127,14 @@ class Gui:
         deck_indexes = ["deck_1", "deck_2"]
         own_area = deck_indexes[self.game.get_player()]
         pos = self.get_index(own_area)
-
+        # TODO: get index of deck
         print("clicked on own card")
 
     def get_index_opp(self):
         deck_indexes = ["deck_1", "deck_2"]
         opp_area = deck_indexes[not self.game.get_player()]
         pos = self.get_index(opp_area)
-
+        # TODO: get index of deck
         print("clicked on opp card")
 
     def should_skill(self):
