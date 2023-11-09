@@ -1,5 +1,7 @@
 # Instructions for GUI functionality
 
+The main loop of the GUI must follow this exactly:
+
 1. The program must wait for player to left-click on one of their own cards
    - If player right-clicks at any time on any card, the program must display
      additional information about that card on the bottom of the screen.
@@ -13,3 +15,17 @@
 4. The own card activates its ability if 3 was successful
 5. Then, the own card attacks the opp card if 2 was successful
 6. Then, the other player has their turn and the round number is increased
+
+These steps ensure that the text mode of input can be preserved, and the code in main
+does not have to change:
+
+```
+card_own = ask_own_index()
+card_opp = ask_opp_index()
+should_skill = ask_should_skill()
+
+if should_skill: activate_ability()
+if card_opp is not None: card_own.attack(card_opp)
+
+game.next_round()
+```

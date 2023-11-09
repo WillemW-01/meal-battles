@@ -1,62 +1,10 @@
-import stddraw_oop as stddraw
+import stddraw_modified as stddraw
 from picture import Picture
 from game import Game
+from gui_constants import *
 
 
 class Gui:
-    UPDATE_SPEED = 200  # ms
-
-    WIDTH, HEIGHT = 1000, 800
-    PADDING = 25
-
-    # LOG_W = 300
-    # LOG_R = WIDTH - PADDING
-    # LOG_L = LOG_R - LOG_W
-    # LOG_T, LOG_B = HEIGHT - PADDING, PADDING
-    # LOG_H = LOG_T - LOG_B
-    # MAIN_R = LOG_L - PADDING
-    MAIN_R = WIDTH
-    ABILITY_W = 100
-
-    # top info bar
-    INFO_TOP_W = 400
-    INFO_TOP_H = 50
-    INFO_TOP_L, INFO_TOP_R = (
-        MAIN_R // 2 - INFO_TOP_W // 2,
-        MAIN_R // 2 + INFO_TOP_W // 2,
-    )
-    INFO_TOP_T = HEIGHT
-    INFO_TOP_B = INFO_TOP_T - INFO_TOP_H
-    # bottom info bar
-    INFO_BOT_H = 150
-    INFO_BOT_L, INFO_BOT_R = PADDING, MAIN_R - 2 * PADDING - ABILITY_W
-    INFO_BOT_T, INFO_BOT_B = INFO_BOT_H, 0
-    INFO_BOT_W = INFO_BOT_R - INFO_BOT_L
-
-    ABILITY_L = INFO_BOT_R + PADDING
-    ABILITY_R = MAIN_R - PADDING
-    ABILITY_T, ABILITY_B = INFO_BOT_T, INFO_BOT_B
-    ABILITY_H = INFO_BOT_H
-
-    # player 1 deck positions
-    DECK_1_L, DECK_1_R = PADDING, MAIN_R // 2 - PADDING
-    DECK_1_T, DECK_1_B = INFO_TOP_B - PADDING, INFO_BOT_T + PADDING
-    DECK_1_W = DECK_1_R - DECK_1_L
-    DECK_1_H = DECK_1_T - DECK_1_B
-    # player 2 deck positions
-    DECK_2_L, DECK_2_R = MAIN_R // 2 + PADDING, MAIN_R - PADDING
-    DECK_2_T, DECK_2_B = INFO_TOP_B - PADDING, INFO_BOT_T + PADDING
-    DECK_2_W = DECK_2_R - DECK_2_L
-    DECK_2_H = DECK_2_T - DECK_2_B
-    # cards
-    CARD_W = DECK_1_W // 2
-    CARD_H = DECK_1_H // 3
-
-    MOUSE_LEFT = True
-    MOUSE_RIGHT = False
-
-    PLAYER_COLORS = {True: stddraw.BOOK_RED, False: stddraw.BOOK_BLUE}
-
     @staticmethod
     def draw_filled_rect(x, y, w, h, fill_color=stddraw.LIGHT_GRAY):
         stddraw.setPenColor(fill_color)
@@ -75,47 +23,41 @@ class Gui:
 
         # fmt:off
         self.areas = {
-          "deck_1":  Area(self.DECK_1_L, self.DECK_1_R, self.DECK_1_B, self.DECK_1_T),
-          "deck_2":  Area(self.DECK_2_L, self.DECK_2_R, self.DECK_2_B, self.DECK_2_T),
-          "ability":  Area(self.ABILITY_L, self.ABILITY_R, self.ABILITY_B, self.ABILITY_T),
+          "deck_1":  Area(DECK_1_L, DECK_1_R, DECK_1_B, DECK_1_T),
+          "deck_2":  Area(DECK_2_L, DECK_2_R, DECK_2_B, DECK_2_T),
+          "ability":  Area(ABILITY_L, ABILITY_R, ABILITY_B, ABILITY_T),
         }  # fmt:on
 
     def is_in(self, area_name, x, y):
         return self.areas[area_name].is_clicked(x, y)
 
-    def _draw_log(self):
-        # Gui.draw_filled_rect(self.LOG_L, self.LOG_B, self.LOG_W, self.LOG_H)
-        pass
+    # def _draw_log(self):
+    # Gui.draw_filled_rect(LOG_L, LOG_B, LOG_W, LOG_H)
+    # pass
 
     def _draw_top_info(self):
-        Gui.draw_filled_rect(
-            self.INFO_TOP_L, self.INFO_TOP_B, self.INFO_TOP_W, self.INFO_TOP_H
-        )
+        Gui.draw_filled_rect(INFO_TOP_L, INFO_TOP_B, INFO_TOP_W, INFO_TOP_H)
 
         curr_player = self.game.get_player()
         player_text = f"Player {int(curr_player) + 1}"
         round_text = f"Round {self.game.get_round()}"
-        x_1 = self.INFO_TOP_L + self.INFO_TOP_W // 4
-        x_2 = self.INFO_TOP_L + (3 * self.INFO_TOP_W // 4)
-        y = self.INFO_TOP_B + self.INFO_TOP_H // 2
+        x_1 = INFO_TOP_L + INFO_TOP_W // 4
+        x_2 = INFO_TOP_L + (3 * INFO_TOP_W // 4)
+        y = INFO_TOP_B + INFO_TOP_H // 2
         stddraw.text(x_1, y, round_text)
-        stddraw.setPenColor(self.PLAYER_COLORS[curr_player])
+        stddraw.setPenColor(PLAYER_COLORS[curr_player])
         stddraw.text(x_2, y, player_text)
         stddraw.setPenColor()
 
     def _draw_bottom_info(self):
-        Gui.draw_filled_rect(
-            self.INFO_BOT_L, self.INFO_BOT_B, self.INFO_BOT_W, self.INFO_BOT_H
-        )
+        Gui.draw_filled_rect(INFO_BOT_L, INFO_BOT_B, INFO_BOT_W, INFO_BOT_H)
 
     def _draw_ability_button(self, is_active=False):
-        print(self.ABILITY_L, self.ABILITY_B, self.ABILITY_W, self.ABILITY_H)
-        Gui.draw_filled_rect(
-            self.ABILITY_L, self.ABILITY_B, self.ABILITY_W, self.ABILITY_H
-        )
+        print(ABILITY_L, ABILITY_B, ABILITY_W, ABILITY_H)
+        Gui.draw_filled_rect(ABILITY_L, ABILITY_B, ABILITY_W, ABILITY_H)
 
-        x_mid = self.ABILITY_L + self.ABILITY_W // 2
-        y_mid = self.ABILITY_B + self.ABILITY_H // 2
+        x_mid = ABILITY_L + ABILITY_W // 2
+        y_mid = ABILITY_B + ABILITY_H // 2
         filepath = "images/ability.png" if is_active else "images/ability_2.png"
         stddraw.picture(Picture(filepath), x_mid, y_mid)
 
@@ -123,44 +65,42 @@ class Gui:
         self._draw_ability_button(True)
 
     def _draw_card(self, left, bottom, side):
-        center_x = left + self.CARD_W // 2
-        center_y = bottom + self.CARD_H // 2
-        color = self.PLAYER_COLORS[side]
+        center_x = left + CARD_W // 2
+        center_y = bottom + CARD_H // 2
+        color = PLAYER_COLORS[side]
         stddraw.setPenColor(color)
-        stddraw.filledCircle(center_x, center_y, self.CARD_W // 4)
+        stddraw.filledCircle(center_x, center_y, CARD_W // 4)
         stddraw.setPenColor()
 
     def _draw_deck_grid(self, left, side):
         stddraw.setPenRadius(1.5)
 
         # draw the middle line
-        stddraw.line(
-            left + self.CARD_W, self.DECK_1_T, left + self.CARD_W, self.DECK_1_B
-        )
+        stddraw.line(left + CARD_W, DECK_1_T, left + CARD_W, DECK_1_B)
 
         # draw the lines and the cards for each of the 3 rows
-        for row in range(self.DECK_1_B, self.DECK_1_T - self.CARD_H // 2, self.CARD_H):
-            if row > self.DECK_1_B and row < self.DECK_1_T - 1:
-                stddraw.line(left + 1, row, left + self.DECK_1_W, row)
+        for row in range(DECK_1_B, DECK_1_T - CARD_H // 2, CARD_H):
+            if row > DECK_1_B and row < DECK_1_T - 1:
+                stddraw.line(left + 1, row, left + DECK_1_W, row)
 
             # for now each card is a circle
             self._draw_card(left, row, side)  # left col
-            self._draw_card(left + self.CARD_W, row, side)  # right col
+            self._draw_card(left + CARD_W, row, side)  # right col
 
         stddraw.setPenRadius()
 
     def _draw_decks(self):
         # draw player 1 deck
-        Gui.draw_filled_rect(self.DECK_1_L, self.DECK_1_B, self.DECK_1_W, self.DECK_1_H)
-        self._draw_deck_grid(self.DECK_1_L, False)
+        Gui.draw_filled_rect(DECK_1_L, DECK_1_B, DECK_1_W, DECK_1_H)
+        self._draw_deck_grid(DECK_1_L, False)
 
         # draw player 2 deck
-        Gui.draw_filled_rect(self.DECK_2_L, self.DECK_2_B, self.DECK_2_W, self.DECK_2_H)
-        self._draw_deck_grid(self.DECK_2_L, True)
+        Gui.draw_filled_rect(DECK_2_L, DECK_2_B, DECK_2_W, DECK_2_H)
+        self._draw_deck_grid(DECK_2_L, True)
 
     def get_mouse_click(self):
         while True:
-            stddraw.show(self.UPDATE_SPEED)
+            stddraw.show(UPDATE_SPEED)
             if stddraw.mousePressed():
                 side = stddraw.mouseSide()
                 return side == "left", stddraw.mousePos()
@@ -208,7 +148,7 @@ class Gui:
         # return True
 
     def update(self):
-        self._draw_log()
+        # self._draw_log()
         self._draw_decks()
         self._draw_top_info()
         self._draw_bottom_info()
