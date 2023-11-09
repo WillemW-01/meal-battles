@@ -11,7 +11,6 @@ from classes.grain import Grain
 from classes.vegetable import Vegetable
 from game import Game
 from gui import Gui
-from log import Log
 import constants
 import custom_scanner
 import utils
@@ -206,8 +205,6 @@ if __name__ == "__main__":
     game.load_decks(decks)
 
     gui = Gui(game)
-    # TODO: add log object to display a text log of the game
-    # log = Log()
 
     # Start game play loop
 
@@ -216,39 +213,48 @@ if __name__ == "__main__":
 
     while True:
         # drawing phase
+        print("new round")
         gui.update()
-        exit(1)
-        draw_round_num(game.get_round())
-        draw_decks(game.get_decks())
 
-        # input phase
-        index_own = ask_player_index(game.get_player())
-        if index_own is None:
-            print("Player skipped round.")
-            game.next_round()
-            continue
+        # select own target
+        gui.get_index()
+        print("clicked own")
+        # select opp target
+        gui.get_index()
+        print("clicked opp")
+        # attack
 
-        index_opp = ask_opp_index(game.get_player())
-        should_skill = ask_should_skill()
-        print()
+        # draw_round_num(game.get_round())
+        # draw_decks(game.get_decks())
 
-        card_own = decks[game.get_player()][index_own]
-        card_opp = decks[game.get_opponent()][index_opp]
+        # # input phase
+        # index_own = ask_player_index(game.get_player())
+        # if index_own is None:
+        #     print("Player skipped round.")
+        #     game.next_round()
+        #     continue
 
-        # action phase
-        if should_skill:
-            card_own.special_ability()
-            # activate its ability
+        # index_opp = ask_opp_index(game.get_player())
+        # should_skill = ask_should_skill()
+        # print()
 
-        # returns true if opponent card was killed
-        if index_opp is not None:
-            is_killed = card_own.damage(card_opp)
-            if is_killed:
-                decks[game.get_opponent()].pop(index_opp)
+        # card_own = decks[game.get_player()][index_own]
+        # card_opp = decks[game.get_opponent()][index_opp]
 
-        # win condition
-        if len(decks[game.get_opponent()]) == 0:
-            print(f"Game is finished! Player {int(game.get_opponent())} lost!")
-            exit(0)
+        # # action phase
+        # if should_skill:
+        #     card_own.special_ability()
+        #     # activate its ability
+
+        # # returns true if opponent card was killed
+        # if index_opp is not None:
+        #     is_killed = card_own.damage(card_opp)
+        #     if is_killed:
+        #         decks[game.get_opponent()].pop(index_opp)
+
+        # # win condition
+        # if len(decks[game.get_opponent()]) == 0:
+        #     print(f"Game is finished! Player {int(game.get_opponent())} lost!")
+        #     exit(0)
 
         game.next_round()
