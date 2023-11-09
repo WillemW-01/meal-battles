@@ -1,5 +1,7 @@
-import stddraw_modified as stddraw
 from picture import Picture
+
+import stddraw_modified as stddraw
+from area import Area
 from game import Game
 from gui_constants import *
 
@@ -115,37 +117,31 @@ class Gui:
         # we know side == MOUSE_LEFT
         return pos
 
+    def get_index(self, area):
+        pos = self.get_left_click()
+        in_deck_area = self.is_in(area, *pos)
+        while not in_deck_area:
+            pos = self.get_left_click()
+            in_deck_area = self.is_in(area, *pos)
+        return pos
+
     def get_index_own(self):
         deck_indexes = ["deck_1", "deck_2"]
         own_area = deck_indexes[self.game.get_player()]
-
-        pos = self.get_left_click()
-        in_deck_area = self.is_in(own_area, *pos)
-        while not in_deck_area:
-            pos = self.get_left_click()
-            in_deck_area = self.is_in(own_area, *pos)
+        pos = self.get_index(own_area)
 
         print("clicked on own card")
 
     def get_index_opp(self):
         deck_indexes = ["deck_1", "deck_2"]
-        own_area = deck_indexes[not self.game.get_player()]
-
-        pos = self.get_left_click()
-        in_deck_area = self.is_in(own_area, *pos)
-        while not in_deck_area:
-            pos = self.get_left_click()
-            in_deck_area = self.is_in(own_area, *pos)
+        opp_area = deck_indexes[not self.game.get_player()]
+        pos = self.get_index(opp_area)
 
         print("clicked on opp card")
 
     def should_skill(self):
         pos = self.get_left_click()
         return self.is_in("ability", *pos)
-        # while not in_ability_area:
-        #     pos = self.get_left_click()
-        #     in_ability_area = self.is_in("ability", *pos)
-        # return True
 
     def update(self):
         # self._draw_log()
@@ -153,13 +149,3 @@ class Gui:
         self._draw_top_info()
         self._draw_bottom_info()
         self._draw_ability_button()
-        pass
-
-
-class Area:
-    def __init__(self, left, right, bottom, top):
-        self.x = range(left, right)
-        self.y = range(bottom, top)
-
-    def is_clicked(self, x, y):
-        return x in self.x and y in self.y
