@@ -1,5 +1,6 @@
-from colors import print_colors
 from random import random
+
+from colors import print_colors
 
 
 def get_player_color(player):

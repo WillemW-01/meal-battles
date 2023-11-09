@@ -43,23 +43,22 @@ This game can also support text mode and graphics mode, if a GUI or only a text
 mode would be desired or necessary at one stage (for example 2 hand-ins)
 """
 
+import json
+import os
 from random import random, seed
 from sys import argv
-import os
-import json
 
-from classes.food import Food
-from classes.protein import Protein
-from classes.fruit import Fruit
-from classes.dairy import Dairy
-from classes.grain import Grain
-from classes.vegetable import Vegetable
-from game import Game
 import constants
 import custom_scanner
 import utils
-
+from classes.dairy import Dairy
+from classes.food import Food
+from classes.fruit import Fruit
+from classes.grain import Grain
+from classes.protein import Protein
+from classes.vegetable import Vegetable
 from colors import print_colors
+from game import Game
 
 seed(100)  # make the pseudo-random number generator produce the same output
 
