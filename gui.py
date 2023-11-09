@@ -1,12 +1,12 @@
 import stddraw_oop as stddraw
-import picture
+from picture import Picture
 from game import Game
 
 
 class Gui:
     UPDATE_SPEED = 200  # ms
 
-    WIDTH, HEIGHT = 1000, 750
+    WIDTH, HEIGHT = 1000, 800
     PADDING = 25
 
     # LOG_W = 300
@@ -28,7 +28,7 @@ class Gui:
     INFO_TOP_T = HEIGHT
     INFO_TOP_B = INFO_TOP_T - INFO_TOP_H
     # bottom info bar
-    INFO_BOT_H = 100
+    INFO_BOT_H = 150
     INFO_BOT_L, INFO_BOT_R = PADDING, MAIN_R - 2 * PADDING - ABILITY_W
     INFO_BOT_T, INFO_BOT_B = INFO_BOT_H, 0
     INFO_BOT_W = INFO_BOT_R - INFO_BOT_L
@@ -108,11 +108,19 @@ class Gui:
             self.INFO_BOT_L, self.INFO_BOT_B, self.INFO_BOT_W, self.INFO_BOT_H
         )
 
-    def _draw_ability_button(self):
+    def _draw_ability_button(self, is_active=False):
         print(self.ABILITY_L, self.ABILITY_B, self.ABILITY_W, self.ABILITY_H)
         Gui.draw_filled_rect(
             self.ABILITY_L, self.ABILITY_B, self.ABILITY_W, self.ABILITY_H
         )
+
+        x_mid = self.ABILITY_L + self.ABILITY_W // 2
+        y_mid = self.ABILITY_B + self.ABILITY_H // 2
+        filepath = "images/ability.png" if is_active else "images/ability_2.png"
+        stddraw.picture(Picture(filepath), x_mid, y_mid)
+
+    def draw_active_ability_button(self):
+        self._draw_ability_button(True)
 
     def _draw_card(self, left, bottom, side):
         center_x = left + self.CARD_W // 2
@@ -193,11 +201,11 @@ class Gui:
 
     def should_skill(self):
         pos = self.get_left_click()
-        in_ability_area = self.is_in("ability", *pos)
-        while not in_ability_area:
-            pos = self.get_left_click()
-            in_ability_area = self.is_in("ability", *pos)
-        return True
+        return self.is_in("ability", *pos)
+        # while not in_ability_area:
+        #     pos = self.get_left_click()
+        #     in_ability_area = self.is_in("ability", *pos)
+        # return True
 
     def update(self):
         self._draw_log()

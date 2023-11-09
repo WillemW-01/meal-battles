@@ -223,6 +223,8 @@ if __name__ == "__main__":
         gui.get_index_opp()
         print("clicked opp")
 
+        gui.draw_active_ability_button()
+
         should_skill = gui.should_skill()
         if should_skill:
             print("activating ability")
