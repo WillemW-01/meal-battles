@@ -32,13 +32,17 @@ def parse_arguments() -> tuple[str, str, bool]:
     decks_file = "input/deck-1.json"
     gui_mode = False
 
-    # --decks --foods --gui
-    if "--decks" in sys.argv:
-        decks_file = get_arg_value("--decks")
-    if "--foods" in sys.argv:
-        stats_file = get_arg_value("--foods")
-    if "--gui" in sys.argv:
-        gui_mode = True
+    if len(sys.argv) == 1:
+        print(
+            "Usage: $ python main.py [--foods <filepath>] [--decks <filepath] [--gui]"
+        )
+    else:
+        if "--decks" in sys.argv:
+            decks_file = get_arg_value("--decks")
+        if "--foods" in sys.argv:
+            stats_file = get_arg_value("--foods")
+        if "--gui" in sys.argv:
+            gui_mode = True
 
     return stats_file, decks_file, gui_mode
 
